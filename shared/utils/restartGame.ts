@@ -9,16 +9,19 @@ export async function restartGame() {
     isChestLocked: false,
     playAttempts: 4,
     gameOver: false,
+    winChest: Math.floor(Math.random() * 6),
   };
 
-  window.app.stage.children.forEach((child: childContainer) => {
-    if (
+  const childrenToRemove = window.app.stage.children.filter(
+    (child: childContainer) =>
       child.customName === "gameInit" ||
       child.customName === "animationContainer"
-    ) {
-      child.destroy({ children: true });
-    }
+  );
+
+  childrenToRemove.forEach((child) => {
+    window.app.stage.removeChild(child);
+    child.destroy();
   });
 
-  gameInit();
+  await gameInit();
 }

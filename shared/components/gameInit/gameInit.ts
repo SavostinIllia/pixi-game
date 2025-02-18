@@ -7,6 +7,9 @@ export interface GameContainer extends Container {
   customName: string;
 }
 
+export const winChest = Math.floor(Math.random() * 6);
+console.log("first", winChest);
+
 export async function gameInit() {
   const { app } = window;
   const { startGameButton } = startGameButtonHandler();

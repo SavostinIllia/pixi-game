@@ -3,7 +3,6 @@ import { createChest } from "../../utils/index";
 
 export const chestWidth = 280;
 export const chestHeight = 100;
-export const winChest = Math.floor(Math.random() * 6);
 
 export function gameChestContainerHandler() {
   const gameChestContainer = new Container();

@@ -2,7 +2,6 @@ import { Assets, Texture, Rectangle, AnimatedSprite } from "pixi.js";
 import {
   chestWidth,
   chestHeight,
-  winChest,
 } from "../components/gameInit/gameChestContainerHandler";
 import { eventBus } from "./eventBus";
 import { animationLayer } from "../components";
@@ -45,7 +44,7 @@ export function createChest(i: number) {
   eventBus.on("gameEnabled", (isEnabled) => {
     chest.alpha = isEnabled ? 1 : 0.2;
   });
-  console.log("winChest", winChest);
+
   chest.on("pointerenter", () => {
     if (!window.gameState.gameEnabled || window.gameState.isChestLocked) return;
     if (!chest.isFullyOpened) {
@@ -98,9 +97,9 @@ export function createChest(i: number) {
               el.alpha = 1;
             }
           });
-          const bonus = Math.random() > 0.1;
+          const bonus = Math.random() < 0.2;
 
-          if (winChest === chest.chestId) {
+          if (window.gameState.winChest === chest.chestId) {
             animationLayer("win", bonus);
 
             if (bonus) {
