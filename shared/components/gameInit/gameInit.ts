@@ -7,9 +7,6 @@ export interface GameContainer extends Container {
   customName: string;
 }
 
-export const winChest = Math.floor(Math.random() * 6);
-console.log("first", winChest);
-
 export async function gameInit() {
   const { app } = window;
   const { startGameButton } = startGameButtonHandler();
@@ -23,13 +20,23 @@ export async function gameInit() {
     .roundRect(0, 0, 600, 500, 30)
     .fill({ color: 0x111111, alpha: 0.5 });
 
-  const gameResult = new Text({
+  const gameAttempts = new Text({
     text: `Game Attemps left : ${window.gameState.playAttempts}`,
     style: {
       fontFamily: "Arial",
       fontSize: 24,
       fill: 0xffffff,
       align: "center",
+    },
+  });
+
+  const gameScore = new Text({
+    text: `Game Score : ${window.gameState.gameScore}`,
+    style: {
+      fontFamily: "Arial",
+      fontSize: 24,
+      fill: 0xffffff,
+      align: "right",
     },
   });
 
@@ -55,11 +62,18 @@ export async function gameInit() {
     (gameContainer.height - gameChestContainer.height) / 2
   );
 
-  gameContainer.addChild(gameResult);
-  gameResult.position.set((gameContainer.width - gameResult.width) / 2, 25);
+  gameContainer.addChild(gameAttempts);
+  gameAttempts.position.set(40, 25);
+
+  gameContainer.addChild(gameScore);
+  gameScore.position.set(gameContainer.width - gameScore.width - 80, 25);
 
   eventBus.on("playAttempts", (attempt) => {
-    gameResult.text = `Game Attemps left : ${attempt}`;
+    gameAttempts.text = `Game Attemps left : ${attempt}`;
+  });
+
+  eventBus.on("gameScore", (score) => {
+    gameScore.text = `Game Score : ${score}`;
   });
 
   app.stage.addChild(gameContainer);

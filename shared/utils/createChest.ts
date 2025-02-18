@@ -97,14 +97,15 @@ export function createChest(i: number) {
               el.alpha = 1;
             }
           });
-          const bonus = Math.random() < 0.2;
+          const win = Math.random() < 0.5;
+          if (window.gameState.winBonusChest === chest.chestId) {
+            animationLayer("win", true);
+            eventBus.emit("gameScore", (window.gameState.gameScore += 100));
 
-          if (window.gameState.winChest === chest.chestId) {
-            animationLayer("win", bonus);
-
-            if (bonus) {
-              window.gameState.gameOver = true;
-            }
+            window.gameState.gameOver = true;
+          } else if (win) {
+            eventBus.emit("gameScore", (window.gameState.gameScore += 10));
+            animationLayer("win", false);
           } else {
             animationLayer("lose");
           }

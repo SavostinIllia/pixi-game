@@ -13,7 +13,8 @@ declare global {
       isChestLocked: boolean;
       playAttempts: number;
       gameOver: boolean;
-      winChest: number;
+      winBonusChest: number;
+      gameScore: number;
     };
   }
 }
@@ -23,7 +24,8 @@ window.gameState = {
   isChestLocked: false,
   playAttempts: 4,
   gameOver: false,
-  winChest: Math.floor(Math.random() * 6),
+  winBonusChest: Math.floor(Math.random() * 6),
+  gameScore: Number(0),
 };
 
 window.app = new Application();

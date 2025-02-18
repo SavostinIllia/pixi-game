@@ -9,7 +9,8 @@ export async function restartGame() {
     isChestLocked: false,
     playAttempts: 4,
     gameOver: false,
-    winChest: Math.floor(Math.random() * 6),
+    winBonusChest: Math.floor(Math.random() * 6),
+    gameScore: 0,
   };
 
   const childrenToRemove = window.app.stage.children.filter(
